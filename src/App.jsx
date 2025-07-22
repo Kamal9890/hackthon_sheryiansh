@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -9,29 +9,25 @@ import FlavorDetail from "./components/FlavourDetail";
 import Login from "./page/Login";
 import Signup from "./page/SignUp";
 
-
 function MainContent() {
   const location = useLocation();
-  const [showMain, setShowMain] = useState(false);
+  const [showLoader, setShowLoader] = useState(location.pathname === "/");
 
   useEffect(() => {
     if (location.pathname === "/") {
-      const timer = setTimeout(() => {
-        setShowMain(true);
-      }, 4000);
+      setShowLoader(true);
+      const timer = setTimeout(() => setShowLoader(false), 4000);
       return () => clearTimeout(timer);
     } else {
-      setShowMain(true);
+      setShowLoader(false);
     }
   }, [location.pathname]);
 
   return (
     <>
-      {location.pathname === "/" && !showMain && (
-        <Loader onComplete={() => setShowMain(true)} />
-      )}
-
-      {showMain && (
+      {showLoader ? (
+        <Loader />
+      ) : (
         <>
           <Navbar />
           <Routes>
@@ -45,8 +41,8 @@ function MainContent() {
               }
             />
             <Route path="/flavor/:id" element={<FlavorDetail />} />
-            <Route path="/login" element={<Login />} />     
-            <Route path="/signup" element={<Signup />} />   
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<div className="p-10 text-center text-red-600">404 - Page Not Found</div>} />
           </Routes>
         </>
@@ -55,12 +51,4 @@ function MainContent() {
   );
 }
 
-function App() {
-  return (
-    <BrowserRouter>
-      <MainContent />
-    </BrowserRouter>
-  );
-}
-
-export default App;
+export default MainContent;
