@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import FlavorGrid from "./components/FlavorGrid";
 import FlavorDetail from "./components/FlavourDetail";
+import Login from "./page/Login";
+import Signup from "./page/SignUp";
 
 
 function MainContent() {
@@ -14,10 +16,9 @@ function MainContent() {
 
   useEffect(() => {
     if (location.pathname === "/") {
-      // Only show loader on home
       const timer = setTimeout(() => {
         setShowMain(true);
-      }, 4000); // optional: delay matching your Loader timing
+      }, 4000);
       return () => clearTimeout(timer);
     } else {
       setShowMain(true);
@@ -26,19 +27,27 @@ function MainContent() {
 
   return (
     <>
-      {location.pathname === "/" && !showMain && <Loader onComplete={() => setShowMain(true)} />}
+      {location.pathname === "/" && !showMain && (
+        <Loader onComplete={() => setShowMain(true)} />
+      )}
 
       {showMain && (
         <>
           <Navbar />
           <Routes>
-            <Route path="/" element={
-              <>
-                <HeroSection />
-                <FlavorGrid />
-              </>
-            } />
+            <Route
+              path="/"
+              element={
+                <>
+                  <HeroSection />
+                  <FlavorGrid />
+                </>
+              }
+            />
             <Route path="/flavor/:id" element={<FlavorDetail />} />
+            <Route path="/login" element={<Login />} />     
+            <Route path="/signup" element={<Signup />} />   
+            <Route path="*" element={<div className="p-10 text-center text-red-600">404 - Page Not Found</div>} />
           </Routes>
         </>
       )}

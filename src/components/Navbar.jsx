@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Menu, X } from 'lucide-react';
 import laysLogo from '../assets/laysLogo.png';
@@ -7,9 +8,10 @@ const Navbar = () => {
   const logoRef = useRef(null);
   const navRef = useRef(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Logo infinite rotation
+    // Infinite logo rotation
     gsap.to(logoRef.current, {
       rotate: 360,
       duration: 20,
@@ -17,7 +19,7 @@ const Navbar = () => {
       ease: 'linear',
     });
 
-    // Navbar smooth fade & slide
+    // Navbar fade and slide animation
     gsap.fromTo(
       navRef.current,
       { y: -40, autoAlpha: 0 },
@@ -25,7 +27,14 @@ const Navbar = () => {
     );
   }, []);
 
-  const navItems = ['Home', 'Flavors', 'About', 'Contact'];
+  const navItems = [
+    { label: 'Home', type: 'scroll' },
+    { label: 'Flavors', type: 'scroll' },
+    { label: 'About', type: 'scroll' },
+    { label: 'Contact', type: 'scroll' },
+    { label: 'Login', type: 'route', path: '/login' },
+    { label: 'Sign Up', type: 'route', path: '/signup' },
+  ];
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id.toLowerCase());
@@ -35,6 +44,8 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
+      role="navigation"
+      aria-label="Main Navigation"
       className="fixed top-0 left-0 w-full z-[9999] bg-gradient-to-r from-yellow-100 to-yellow-50 shadow-md px-4 md:px-8 py-3"
     >
       <div className="flex items-center justify-between max-w-7xl mx-auto">
@@ -53,15 +64,25 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-8 text-yellow-900 font-medium text-base md:text-lg">
-          {navItems.map((item) => (
-            <li
-              key={item}
-              className="cursor-pointer hover:text-yellow-600 transition duration-300"
-              onClick={() => scrollToSection(item)}
-            >
-              {item}
-            </li>
-          ))}
+          {navItems.map((item) =>
+            item.type === 'scroll' ? (
+              <li
+                key={item.label}
+                className="cursor-pointer hover:text-yellow-600 transition duration-300"
+                onClick={() => scrollToSection(item.label)}
+              >
+                {item.label}
+              </li>
+            ) : (
+              <li
+                key={item.label}
+                className="cursor-pointer hover:text-yellow-600 transition duration-300"
+                onClick={() => navigate(item.path)}
+              >
+                {item.label}
+              </li>
+            )
+          )}
         </ul>
 
         {/* Mobile Menu Button */}
@@ -83,18 +104,31 @@ const Navbar = () => {
         }`}
       >
         <ul className="flex flex-col items-center gap-5 py-6 text-yellow-900 font-medium text-lg">
-          {navItems.map((item) => (
-            <li
-              key={item}
-              className="cursor-pointer hover:text-yellow-600"
-              onClick={() => {
-                setMobileOpen(false);
-                scrollToSection(item);
-              }}
-            >
-              {item}
-            </li>
-          ))}
+          {navItems.map((item) =>
+            item.type === 'scroll' ? (
+              <li
+                key={item.label}
+                className="cursor-pointer hover:text-yellow-600"
+                onClick={() => {
+                  scrollToSection(item.label);
+                  setMobileOpen(false);
+                }}
+              >
+                {item.label}
+              </li>
+            ) : (
+              <li
+                key={item.label}
+                className="cursor-pointer hover:text-yellow-600"
+                onClick={() => {
+                  navigate(item.path);
+                  setMobileOpen(false);
+                }}
+              >
+                {item.label}
+              </li>
+            )
+          )}
         </ul>
       </div>
     </nav>

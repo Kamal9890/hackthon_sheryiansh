@@ -6,6 +6,7 @@ import chipImg from '../assets/chip1.png';
 import laysLogo from '../assets/laysLogo.png';
 
 const Loader = ({ onComplete }) => {
+  const loaderRef = useRef(null);
   const logoRef = useRef(null);
   const chipsContainerRef = useRef(null);
   const [loadingPercent, setLoadingPercent] = useState(0);
@@ -19,32 +20,40 @@ const Loader = ({ onComplete }) => {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-            gsap.to('.loader', { opacity: 0, duration: 1, onComplete });
+            if (loaderRef.current) {
+              gsap.to(loaderRef.current, {
+                opacity: 0,
+                duration: 1,
+                onComplete,
+              });
+            }
           }, 1000);
           return prev;
         }
         return prev + 1;
       });
-    }, 50); // Slowed down for smoother experience
+    }, 50);
 
     // Animate logo with slower rotation
-    gsap.fromTo(logoRef.current,
+    gsap.fromTo(
+      logoRef.current,
       { scale: 0, rotateY: 180 },
       {
         scale: 1,
         rotateY: 0,
-        duration: 2, // ⬅️ Increased duration for slower rotation
+        duration: 2,
         ease: 'back.out(1.7)',
         onStart: () => {
-          if (crunchSound.current) crunchSound.current.play().catch(() => {});
-        }
+          crunchSound.current?.play().catch(() => {});
+        },
       }
     );
 
     // Animate chips
     if (chipsContainerRef.current) {
       const chips = chipsContainerRef.current.querySelectorAll('.chip');
-      gsap.fromTo(chips,
+      gsap.fromTo(
+        chips,
         { y: -150, opacity: 0, rotate: -90, x: 0 },
         {
           y: '100vh',
@@ -52,15 +61,18 @@ const Loader = ({ onComplete }) => {
           duration: 3,
           stagger: 0.2,
           rotate: 360,
-          x: (i) => (i % 2 === 0 ? -100 : 100),
-          ease: 'bounce.out'
+          x: i => (i % 2 === 0 ? -100 : 100),
+          ease: 'bounce.out',
         }
       );
     }
   }, [onComplete]);
 
   return (
-    <div className="loader fixed inset-0 bg-yellow-100 flex items-center justify-center flex-col gap-6 z-50 overflow-hidden">
+    <div
+      ref={loaderRef}
+      className="loader fixed inset-0 bg-yellow-100 flex items-center justify-center flex-col gap-6 z-50 overflow-hidden"
+    >
       <div ref={chipsContainerRef} className="absolute inset-0 -z-10">
         {Array.from({ length: 8 }).map((_, i) => (
           <img
