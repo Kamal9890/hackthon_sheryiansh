@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-
 import { useNavigate } from 'react-router-dom';
 import { flavors } from '../data/flavorData';
 
@@ -13,7 +11,10 @@ const FlavorGrid = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    gsap.from(cardsRef.current, {
+  const elements = gsap.utils.toArray(cardsRef.current);
+
+  if (elements.length > 0) {
+    gsap.from(elements, {
       opacity: 0,
       y: 80,
       stagger: 0.2,
@@ -22,9 +23,12 @@ const FlavorGrid = () => {
       scrollTrigger: {
         trigger: '#flavors',
         start: 'top 80%',
+        once: true, // Optional: only animate once
       },
     });
-  }, []);
+  }
+}, []);
+
 
   return (
     <section id="flavors" className="py-20 bg-yellow-50">
@@ -37,8 +41,7 @@ const FlavorGrid = () => {
             <div
               key={idx}
               ref={(el) => (cardsRef.current[idx] = el)}
-              onClick={() => navigate(`/flavor/${flavor.id}`)}
-              className="cursor-pointer bg-white p-6 rounded-3xl border-4 border-yellow-300 shadow-md hover:shadow-2xl transition duration-300 transform hover:scale-105"
+              className="bg-white p-6 rounded-3xl border-4 border-yellow-300 shadow-md hover:shadow-2xl transition duration-300 transform hover:scale-105"
             >
               <img
                 src={flavor.image}
@@ -46,7 +49,13 @@ const FlavorGrid = () => {
                 className="w-24 h-24 mx-auto mb-5 transition-transform duration-300 ease-in-out hover:rotate-12 drop-shadow-xl"
               />
               <h3 className="text-xl font-bold text-yellow-800 mb-2">{flavor.title}</h3>
-              <p className="text-yellow-700 text-sm">{flavor.desc}</p>
+              <p className="text-yellow-700 text-sm mb-4">{flavor.desc}</p>
+              <button
+                onClick={() => navigate(`/flavor/${flavor.id}`)}
+                className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-5 rounded-full shadow-lg transition duration-300"
+              >
+                Buy Now
+              </button>
             </div>
           ))}
         </div>
