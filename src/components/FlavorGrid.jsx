@@ -1,38 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import lays1 from '../assets/chip1.png';
-import lays2 from '../assets/chip2.png';
-import lays3 from '../assets/chip3.png';
-import lays4 from '../assets/lays5.png';
+
+
+import { useNavigate } from 'react-router-dom';
+import { flavors } from '../data/flavorData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const flavors = [
-  {
-    title: 'Classic Salted',
-    desc: 'A timeless favorite with the perfect pinch of salt.',
-    image: lays1,
-  },
-  {
-    title: 'Masala Magic',
-    desc: 'Spicy, tangy, and totally irresistible.',
-    image: lays2,
-  },
-  {
-    title: 'Cream & Onion',
-    desc: 'Smooth cream and sharp onion combined.',
-    image: lays3,
-  },
-  {
-    title: 'Hot Chilli',
-    desc: 'Bold flavors for the brave-hearted.',
-    image: lays4,
-  },
-];
-
 const FlavorGrid = () => {
   const cardsRef = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     gsap.from(cardsRef.current, {
@@ -59,7 +37,8 @@ const FlavorGrid = () => {
             <div
               key={idx}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className="bg-white p-6 rounded-3xl border-4 border-yellow-300 shadow-md hover:shadow-2xl transition duration-300 transform hover:scale-105"
+              onClick={() => navigate(`/flavor/${flavor.id}`)}
+              className="cursor-pointer bg-white p-6 rounded-3xl border-4 border-yellow-300 shadow-md hover:shadow-2xl transition duration-300 transform hover:scale-105"
             >
               <img
                 src={flavor.image}
