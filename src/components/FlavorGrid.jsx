@@ -8,30 +8,34 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FlavorGrid = () => {
   const cardsRef = useRef([]);
+  const sectionRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-  const elements = gsap.utils.toArray(cardsRef.current);
+    const ctx = gsap.context(() => {
+      gsap.from(cardsRef.current, {
+        opacity: 0,
+        y: 60,
+        stagger: 0.2,
+        duration: 1.2,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
+    }, sectionRef);
 
-  if (elements.length > 0) {
-    gsap.from(elements, {
-      opacity: 0,
-      y: 80,
-      stagger: 0.2,
-      duration: 1.2,
-      ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: '#flavors',
-        start: 'top 80%',
-        once: true, // Optional: only animate once
-      },
-    });
-  }
-}, []);
-
+    return () => ctx.revert(); // clean-up
+  }, []);
 
   return (
-    <section id="flavors" className="py-20 bg-yellow-50">
+    <section
+      id="flavors"
+      ref={sectionRef}
+      className="py-20 bg-yellow-50 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 text-center">
         <h2 className="text-4xl sm:text-5xl font-bold text-yellow-800 mb-12">
           Explore Our Bold Flavors
@@ -39,7 +43,7 @@ const FlavorGrid = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {flavors.map((flavor, idx) => (
             <div
-              key={idx}
+              key={flavor.id}
               ref={(el) => (cardsRef.current[idx] = el)}
               className="bg-white p-6 rounded-3xl border-4 border-yellow-300 shadow-md hover:shadow-2xl transition duration-300 transform hover:scale-105"
             >

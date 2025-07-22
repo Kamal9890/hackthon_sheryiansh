@@ -4,10 +4,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import FlavorGrid from "./components/FlavorGrid";
-import FlavorDetail from "./components/FlavourDetail";
+import FlavorDetail from "./components/ChipDetail";
 import Login from "./page/Login";
 import Signup from "./page/SignUp";
+import ChipVarieties from "./components/ChipVarieties";
 
 function MainContent() {
   const location = useLocation();
@@ -36,14 +36,22 @@ function MainContent() {
               element={
                 <>
                   <HeroSection />
-                  <FlavorGrid />
+                  <ChipVarieties />
                 </>
               }
             />
+            <Route path="/varieties" element={<ChipVarieties />} />
             <Route path="/flavor/:id" element={<FlavorDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<div className="p-10 text-center text-red-600">404 - Page Not Found</div>} />
+            <Route
+              path="*"
+              element={
+                <div className="p-10 text-center text-red-600">
+                  404 - Page Not Found
+                </div>
+              }
+            />
           </Routes>
         </>
       )}
