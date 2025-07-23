@@ -1,4 +1,4 @@
-// src/MainContent.jsx
+
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -14,7 +14,7 @@ import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import FooterSection from "./components/FooterSection";
 
-function MainContent() {
+function App() {
   const location = useLocation();
   const [showLoader, setShowLoader] = useState(location.pathname === "/");
 
@@ -38,9 +38,8 @@ useEffect(() => {
       if (targetEl) {
         targetEl.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 500); // Delay to ensure all sections are mounted
-
-    // ✅ Clear the scroll state so back button doesn't re-scroll
+    }, 500); 
+    
     window.history.replaceState({}, document.title);
   }
 }, [location]);
@@ -58,12 +57,12 @@ useEffect(() => {
               path="/"
               element={
                 <>
-                  {/* ✅ Make sure each of these sections has a matching ID */}
-                  <HeroSection />         {/* id="home" inside */}
-                  <ChipVarieties />       {/* id="flavors" inside */}
+                 
+                  <HeroSection />         
+                  <ChipVarieties />       
                   <TestimonialSection />
-                  <AboutSection />        {/* id="about" inside */}
-                  <ContactSection />      {/* id="contact" inside */}
+                  <AboutSection />        
+                  <ContactSection />      
                   <FooterSection />
                 </>
               }
@@ -87,4 +86,4 @@ useEffect(() => {
   );
 }
 
-export default MainContent;
+export default App;

@@ -1,12 +1,12 @@
-// flavorData.js
-import classic from '../assets/chip1.png';
-import masala from '../assets/chip2.png';
-import creamOnion from '../assets/chip3.png';
-import bbq from '../assets/lays5.png';
-import chiliTwist from '../assets/lays2.png';
+
+import classic from '../assets/classic.png';
+import masala from '../assets/magic-masala.png';
+import creamOnion from '../assets/onion.png';
+import bbq from '../assets/bbq-blast.png';
+import chiliTwist from '../assets/chili.png';
 import cheesyBurst from '../assets/lays4.png';
-import tangyTomato from '../assets/chip-left.png';
-import mintMunch from '../assets/chip-right.png';
+import tangyTomato from '../assets/lays5.png';
+import mintMunch from '../assets/potatochips.png';
 
 export const chipsData = [
   {

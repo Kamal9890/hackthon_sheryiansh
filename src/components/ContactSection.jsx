@@ -51,7 +51,7 @@ const ContactSection = () => {
       className="relative bg-gradient-to-r from-yellow-100 to-yellow-100 py-24 px-6 overflow-hidden"
     >
       <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Left Side */}
+       
         <div className="space-y-6">
           <h2 className="text-5xl font-extrabold text-yellow-700 leading-tight">
             Let’s Crunch Some Ideas!
@@ -63,7 +63,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        {/* Right Side Form */}
+        
         <form
           ref={formRef}
           onSubmit={(e) => {

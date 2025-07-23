@@ -26,7 +26,9 @@ const AboutSection = () => {
       }
     );
 
-    // Bounce & rotate chip image on scroll
+  
+
+
     gsap.fromTo(
       chipRef.current,
       { opacity: 0, y: 60, rotate: -10 },
@@ -57,7 +59,7 @@ const AboutSection = () => {
       className="relative bg-[#fff4c2] py-24 px-6 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-        {/* LEFT TEXT */}
+       
         <div ref={textRef} className="md:w-1/2 text-center md:text-left z-10">
           <h2 className="text-4xl md:text-5xl font-bold text-yellow-900 mb-6">
             About Lays Crunch
@@ -80,7 +82,7 @@ const AboutSection = () => {
           </button>
         </div>
 
-        {/* RIGHT IMAGE */}
+       
         <div className="md:w-1/2 flex justify-center relative z-0">
           <img
             ref={chipRef}

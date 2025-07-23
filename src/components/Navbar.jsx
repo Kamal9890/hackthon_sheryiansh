@@ -12,7 +12,8 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Infinite logo rotation
+    
+
     gsap.to(logoRef.current, {
       rotate: 360,
       duration: 20,
@@ -20,7 +21,7 @@ const Navbar = () => {
       ease: 'linear',
     });
 
-    // Navbar fade and slide animation
+  
     gsap.fromTo(
       navRef.current,
       { y: -40, autoAlpha: 0 },
@@ -40,7 +41,7 @@ const Navbar = () => {
   const handleScrollOrNavigate = (item) => {
     if (item.type === 'scroll') {
       if (location.pathname !== '/') {
-        // Navigate to home first, then scroll using state
+       
        navigate('/', { replace: false, state: { scrollToId: item.id } });
       } else {
         const el = document.getElementById(item.id);
@@ -59,7 +60,7 @@ const Navbar = () => {
       className="fixed top-0 left-0 w-full z-[9999] bg-gradient-to-r from-yellow-100 to-yellow-50 shadow-md px-4 md:px-8 py-3"
     >
       <div className="flex items-center justify-between max-w-7xl mx-auto">
-        {/* Logo */}
+       
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
           <img
             ref={logoRef}
@@ -72,7 +73,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        {/* Desktop Nav */}
+       
         <ul className="hidden md:flex gap-8 text-yellow-900 font-medium text-base md:text-lg">
           {navItems.map((item) => (
             <li
@@ -85,7 +86,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Mobile Menu Button */}
+       
         <div className="md:hidden z-[60]">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -97,7 +98,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Slide Nav */}
+     
       <div
         className={`md:hidden fixed top-[60px] left-0 w-full bg-yellow-100 transition-all duration-300 ease-in-out z-[9998] ${
           mobileOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'

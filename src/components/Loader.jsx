@@ -1,4 +1,4 @@
-// Loader.jsx
+
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import crunchSoundFile from '../assets/crunch.mp3';
@@ -34,7 +34,7 @@ const Loader = ({ onComplete }) => {
       });
     }, 50);
 
-    // Animate logo with slower rotation
+    
     gsap.fromTo(
       logoRef.current,
       { scale: 0, rotateY: 180 },
@@ -49,7 +49,7 @@ const Loader = ({ onComplete }) => {
       }
     );
 
-    // Animate chips
+    
     if (chipsContainerRef.current) {
       const chips = chipsContainerRef.current.querySelectorAll('.chip');
       gsap.fromTo(

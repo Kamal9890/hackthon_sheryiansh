@@ -1,4 +1,4 @@
-// ChipDetail.jsx
+
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { chipsData } from "../data/flavorData";
@@ -26,14 +26,14 @@ const ChipDetail = () => {
         animate={{ scale: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        {/* Image Left */}
+      
         <img
           src={chip.img}
           alt={chip.name}
           className="w-72 h-auto object-contain hover:scale-105 transition-transform duration-300"
         />
 
-        {/* Text Right */}
+        
         <div className="flex flex-col gap-5 text-left">
           <h2 className="text-4xl font-extrabold text-yellow-600">{chip.name}</h2>
           <p className="text-gray-700 text-lg max-w-xl leading-relaxed">

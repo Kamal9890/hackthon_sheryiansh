@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import laysHero from '../assets/lay1.png'; // make sure image path is valid
+import laysHero from '../assets/lay1.png'; 
 
 const HeroSection = () => {
   const heroRef = useRef(null);
@@ -36,7 +36,7 @@ const HeroSection = () => {
       ref={heroRef}
       className="relative pt-28 md:pt-32 pb-16 bg-gradient-to-br from-yellow-50 to-yellow-100 overflow-hidden"
     >
-      {/* Falling Chips */}
+     
       {[...Array(12)].map((_, i) => (
         <div
           key={i}
@@ -50,7 +50,7 @@ const HeroSection = () => {
       ))}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 relative z-10">
-        {/* Text */}
+       
         <div ref={textRef} className="text-center lg:text-left space-y-6 max-w-2xl">
           <h1 className="text-6xl sm:text-4xl font-bold text-yellow-800 leading-tight">
             Welcome to the Crunchverse
@@ -63,7 +63,7 @@ const HeroSection = () => {
           </button>
         </div>
 
-        {/* Rotating Image */}
+       
         <div className="w-[240px] sm:w-[300px] md:w-[360px] perspective-1000">
           <img
             ref={imageRef}
@@ -75,7 +75,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Animations */}
+      
       <style>{`
         @keyframes fall {
           0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
