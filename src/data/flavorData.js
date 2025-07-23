@@ -1,7 +1,7 @@
 
 import classic from '../assets/classic.png';
 import masala from '../assets/magic-masala.png';
-import creamOnion from '../assets/onion.png';
+import creamOnion from '../assets/Onion.png';
 import bbq from '../assets/bbq-blast.png';
 import chiliTwist from '../assets/chili.png';
 import cheesyBurst from '../assets/lays4.png';
