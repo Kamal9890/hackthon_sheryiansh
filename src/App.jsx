@@ -8,6 +8,10 @@ import FlavorDetail from "./components/ChipDetail";
 import Login from "./page/Login";
 import Signup from "./page/SignUp";
 import ChipVarieties from "./components/ChipVarieties";
+import TestimonialSection from "./components/TestimonialSection";
+import AboutSection from "./components/AboutSection";
+import ContactSection from "./components/ContactSection";
+import FooterSection from "./components/FooterSection";
 
 function MainContent() {
   const location = useLocation();
@@ -37,6 +41,10 @@ function MainContent() {
                 <>
                   <HeroSection />
                   <ChipVarieties />
+                  <TestimonialSection/>
+                  <AboutSection/>
+                  <ContactSection/>
+                  <FooterSection/>
                 </>
               }
             />

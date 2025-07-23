@@ -18,3 +18,20 @@
   animation: spin3d 6s linear infinite;
 }
 
+.glow-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,0,0.2) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 0.4s ease;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.glow-button:hover::before {
+  transform: scale(1.2);
+}

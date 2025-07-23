@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Menu, X } from 'lucide-react';
 import laysLogo from '../assets/laysLogo.png';
@@ -9,6 +9,7 @@ const Navbar = () => {
   const navRef = useRef(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Infinite logo rotation
@@ -28,17 +29,26 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { label: 'Home', type: 'scroll' },
-    { label: 'Flavors', type: 'scroll' },
-    { label: 'About', type: 'scroll' },
-    { label: 'Contact', type: 'scroll' },
+    { label: 'Home', type: 'scroll', id: 'home' },
+    { label: 'Flavors', type: 'scroll', id: 'flavors' },
+    { label: 'About', type: 'scroll', id: 'about' },
+    { label: 'Contact', type: 'scroll', id: 'contact' },
     { label: 'Login', type: 'route', path: '/login' },
     { label: 'Sign Up', type: 'route', path: '/signup' },
   ];
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id.toLowerCase());
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  const handleScrollOrNavigate = (item) => {
+    if (item.type === 'scroll') {
+      if (location.pathname !== '/') {
+        // Navigate to home first, then scroll using state
+        navigate('/', { state: { scrollToId: item.id } });
+      } else {
+        const el = document.getElementById(item.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(item.path);
+    }
   };
 
   return (
@@ -50,7 +60,7 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
           <img
             ref={logoRef}
             src={laysLogo}
@@ -64,25 +74,15 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-8 text-yellow-900 font-medium text-base md:text-lg">
-          {navItems.map((item) =>
-            item.type === 'scroll' ? (
-              <li
-                key={item.label}
-                className="cursor-pointer hover:text-yellow-600 transition duration-300"
-                onClick={() => scrollToSection(item.label)}
-              >
-                {item.label}
-              </li>
-            ) : (
-              <li
-                key={item.label}
-                className="cursor-pointer hover:text-yellow-600 transition duration-300"
-                onClick={() => navigate(item.path)}
-              >
-                {item.label}
-              </li>
-            )
-          )}
+          {navItems.map((item) => (
+            <li
+              key={item.label}
+              className="cursor-pointer hover:text-yellow-600 transition duration-300"
+              onClick={() => handleScrollOrNavigate(item)}
+            >
+              {item.label}
+            </li>
+          ))}
         </ul>
 
         {/* Mobile Menu Button */}
@@ -104,31 +104,18 @@ const Navbar = () => {
         }`}
       >
         <ul className="flex flex-col items-center gap-5 py-6 text-yellow-900 font-medium text-lg">
-          {navItems.map((item) =>
-            item.type === 'scroll' ? (
-              <li
-                key={item.label}
-                className="cursor-pointer hover:text-yellow-600"
-                onClick={() => {
-                  scrollToSection(item.label);
-                  setMobileOpen(false);
-                }}
-              >
-                {item.label}
-              </li>
-            ) : (
-              <li
-                key={item.label}
-                className="cursor-pointer hover:text-yellow-600"
-                onClick={() => {
-                  navigate(item.path);
-                  setMobileOpen(false);
-                }}
-              >
-                {item.label}
-              </li>
-            )
-          )}
+          {navItems.map((item) => (
+            <li
+              key={item.label}
+              className="cursor-pointer hover:text-yellow-600"
+              onClick={() => {
+                handleScrollOrNavigate(item);
+                setMobileOpen(false);
+              }}
+            >
+              {item.label}
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
