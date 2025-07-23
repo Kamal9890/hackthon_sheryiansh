@@ -24,7 +24,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-yellow-50 flex items-center justify-center px-4">
+    <div  className="min-h-screen bg-yellow-50 flex items-center justify-center px-4">
       <div
         ref={containerRef}
         className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md"

@@ -1,16 +1,16 @@
-// ChipVarieties.jsx
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
 import { chipsData } from '../data/flavorData';
 
-const ChipVarieties = () => {
+const ChipVarieties = ({ id = "flavors" }) => {
   const sectionRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const cards = sectionRef.current.querySelectorAll('.chip-card');
-    gsap.fromTo(cards,
+    gsap.fromTo(
+      cards,
       { opacity: 0, y: 50 },
       {
         opacity: 1,
@@ -18,13 +18,14 @@ const ChipVarieties = () => {
         duration: 1,
         ease: 'power2.out',
         stagger: 0.2,
-        delay: 0.3
+        delay: 0.3,
       }
     );
   }, []);
 
   return (
     <section
+      id={id}
       ref={sectionRef}
       className="py-20 px-6 bg-[#fff9db] text-center"
     >

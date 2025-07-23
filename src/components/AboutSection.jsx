@@ -52,7 +52,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section
+    <section id ="about"
       ref={sectionRef}
       className="relative bg-[#fff4c2] py-24 px-6 overflow-hidden"
     >

@@ -32,7 +32,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section
+    <section id="home"
       ref={heroRef}
       className="relative pt-28 md:pt-32 pb-16 bg-gradient-to-br from-yellow-50 to-yellow-100 overflow-hidden"
     >

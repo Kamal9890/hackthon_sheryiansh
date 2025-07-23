@@ -1,3 +1,4 @@
+// src/MainContent.jsx
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -27,6 +28,24 @@ function MainContent() {
     }
   }, [location.pathname]);
 
+
+useEffect(() => {
+  if (location.pathname === '/' && location.state?.scrollToId) {
+    const scrollToId = location.state.scrollToId;
+
+    setTimeout(() => {
+      const targetEl = document.getElementById(scrollToId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500); // Delay to ensure all sections are mounted
+
+    // ✅ Clear the scroll state so back button doesn't re-scroll
+    window.history.replaceState({}, document.title);
+  }
+}, [location]);
+
+
   return (
     <>
       {showLoader ? (
@@ -39,12 +58,13 @@ function MainContent() {
               path="/"
               element={
                 <>
-                  <HeroSection />
-                  <ChipVarieties />
-                  <TestimonialSection/>
-                  <AboutSection/>
-                  <ContactSection/>
-                  <FooterSection/>
+                  {/* ✅ Make sure each of these sections has a matching ID */}
+                  <HeroSection />         {/* id="home" inside */}
+                  <ChipVarieties />       {/* id="flavors" inside */}
+                  <TestimonialSection />
+                  <AboutSection />        {/* id="about" inside */}
+                  <ContactSection />      {/* id="contact" inside */}
+                  <FooterSection />
                 </>
               }
             />

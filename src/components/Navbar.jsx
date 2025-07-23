@@ -41,7 +41,7 @@ const Navbar = () => {
     if (item.type === 'scroll') {
       if (location.pathname !== '/') {
         // Navigate to home first, then scroll using state
-        navigate('/', { state: { scrollToId: item.id } });
+       navigate('/', { replace: false, state: { scrollToId: item.id } });
       } else {
         const el = document.getElementById(item.id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
