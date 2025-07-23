@@ -36,7 +36,7 @@ const FooterSection = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 z-10 relative">
-        {/* Brand */}
+       
         <div>
           <h2 className="text-4xl font-extrabold mb-3 text-yellow-700">LaysLand 🍟</h2>
           <p className="text-sm text-gray-700">
@@ -44,7 +44,7 @@ const FooterSection = () => {
           </p>
         </div>
 
-        {/* Navigation */}
+        
         <div>
           <h3 className="font-semibold text-lg mb-4">Explore</h3>
           <ul className="space-y-2 text-sm text-gray-800">
@@ -55,7 +55,7 @@ const FooterSection = () => {
           </ul>
         </div>
 
-        {/* Socials */}
+        
         <div>
           <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
           <div className="flex gap-5 text-2xl text-yellow-700">
@@ -75,12 +75,12 @@ const FooterSection = () => {
         </div>
       </div>
 
-      {/* Divider Line */}
+    
       <div className="border-t mt-10 pt-6 text-center text-sm text-gray-500">
         © {new Date().getFullYear()} LaysLand. All rights reserved. Built with 💛 by Kamal.
       </div>
 
-      {/* Scroll To Top */}
+
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className="absolute right-5 bottom-5 bg-yellow-400 hover:bg-yellow-500 text-white p-3 rounded-full shadow-md transition-all duration-300"
